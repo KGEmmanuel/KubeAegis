@@ -4,8 +4,8 @@ A Vendor-Neutral Protocol for Constitutional Agentic Control Planes. Defining th
 > **A Vendor-Neutral Protocol for Constitutional Agentic Control Planes.**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Go Report Card](https://goreportcard.com/badge/github.com/KGEmmanuel/kubecortex)](https://goreportcard.com/report/github.com/KGEmmanuel/kubecortex)
-[![CNCF Landscape](https://img.shields.io/badge/CNCF%20Landscape-Sandbox-blue)](https://landscape.cncf.io/) *<-- (Only add "Sandbox" once accepted, use "Candidate" for now)*
+[![Go Report Card](https://goreportcard.com/badge/github.com/KGEmmanuel/KubeCortex)](https://goreportcard.com/report/github.com/KGEmmanuel/KubeCortex)
+[![CNCF Landscape](https://img.shields.io/badge/CNCF%20Landscape-Sandbox-blue)](https://landscape.cncf.io/)
 
 ---
 
