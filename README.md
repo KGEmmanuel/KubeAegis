@@ -18,28 +18,24 @@ It solves the **"Black Box"** problem in Agentic Infrastructure by wrapping prob
 * **Safety:** The Constitutional Proxy (Sidecar)
 * **State:** Pluggable Durable Backend (Default: Temporal)
 
+```mermaid
 flowchart TB
-    %% =====================
-    %% Entry Point
-    %% =====================
-    User[User / CI-CD System<br/>PlanRequest CRD]:::core
-    Operator[Cortex Operator<br/>(Semantic Router)]:::core
+
+    User["User / CI-CD System\nPlanRequest CRD"]
+    Operator["Cortex Operator\nSemantic Router"]
 
     User --> Operator
 
-    %% =====================
-    %% Layer 1: Cognitive Planner
-    %% =====================
-    subgraph L1["Layer 1: Cognitive Planner (Probabilistic Brain)"]
-        Router[Semantic Router]:::core
+    subgraph L1[Layer 1: Cognitive Planner]
+        Router["Semantic Router"]
 
-        subgraph Agents["Pluggable AI Planners (CAI Protocol)"]
-            AutoGen[AutoGen<br/>Multi-Agent Debate]:::ai
-            LangGraph[LangGraph<br/>Stateful Reasoning]:::ai
-            CrewAI[CrewAI<br/>Role-Based Agents]:::ai
+        subgraph Agents[Pluggable AI Planners]
+            AutoGen["AutoGen\nMulti-Agent Debate"]
+            LangGraph["LangGraph\nStateful Reasoning"]
+            CrewAI["CrewAI\nRole-Based Agents"]
         end
 
-        Draft[Draft Plan<br/>(YAML Manifest)]:::ai
+        Draft["Draft Plan\nYAML Manifest"]
     end
 
     Operator --> Router
@@ -51,42 +47,33 @@ flowchart TB
     LangGraph --> Draft
     CrewAI --> Draft
 
-    %% =====================
-    %% Layer 2: Constitutional Proxy
-    %% =====================
-    subgraph L2["Layer 2: Constitutional Proxy (Deterministic Firewall)"]
-        Proxy[Constitutional Proxy<br/>(API Isolation)]:::safety
-        Policy[Policy Engine<br/>(OPA / Kyverno)]:::safety
-        Reject[Policy Violation<br/>Structured Error]:::reject
-        Sign[Verified & Signed Plan]:::exec
+    subgraph L2[Layer 2: Constitutional Proxy]
+        Proxy["Constitutional Proxy"]
+        Policy["Policy Engine\nOPA / Kyverno"]
+        Reject["Policy Violation"]
+        Sign["Verified & Signed Plan"]
     end
 
     Draft --> Proxy
     Proxy --> Policy
-    Policy -- Reject --> Reject
-    Reject -. Self-Correction Loop .-> Router
-    Policy -- Approve --> Sign
+    Policy -->|Reject| Reject
+    Reject -.-> Router
+    Policy -->|Approve| Sign
 
-    %% =====================
-    %% Layer 3: Durable Execution
-    %% =====================
-    subgraph L3["Layer 3: Durable Execution (The Hands)"]
-        Executor[Pluggable Executor]:::exec
-        Temporal[Temporal Worker<br/>Durable Workflow]:::exec
-        Argo[Argo Workflows<br/>DAG Executor]:::exec
+    subgraph L3[Layer 3: Durable Execution]
+        Executor["Pluggable Executor"]
+        Temporal["Temporal Worker"]
+        Argo["Argo Workflows"]
     end
 
     Sign --> Executor
     Executor --> Temporal
     Executor --> Argo
 
-    %% =====================
-    %% Layer 4: Infrastructure
-    %% =====================
-    subgraph L4["Layer 4: Infrastructure (The Target)"]
-        K8s[Kubernetes API]:::infra
-        Pods[Pods / Nodes]:::infra
-        Crossplane[Crossplane Resources<br/>(Cloud Infra)]:::infra
+    subgraph L4[Layer 4: Infrastructure]
+        K8s["Kubernetes API"]
+        Pods["Pods / Nodes"]
+        Crossplane["Crossplane Resources"]
     end
 
     Temporal --> K8s
@@ -94,28 +81,14 @@ flowchart TB
     K8s --> Pods
     K8s --> Crossplane
 
-    %% =====================
-    %% State Persistence
-    %% =====================
-    subgraph Memory["Durable State & Audit Trail"]
-        Store[Postgres / Redis<br/>Immutable History]:::memory
+    subgraph Memory[State & Audit Trail]
+        Store["Postgres / Redis"]
     end
 
     Operator --> Store
     Proxy --> Store
     Executor --> Store
-
-    %% =====================
-    %% Styles
-    %% =====================
-    classDef core fill:#1e3a8a,color:#fff,stroke:#60a5fa
-    classDef ai fill:#6d28d9,color:#fff,stroke:#c4b5fd
-    classDef safety fill:#7f1d1d,color:#fff,stroke:#f87171
-    classDef reject fill:#991b1b,color:#fff,stroke:#ef4444
-    classDef exec fill:#065f46,color:#fff,stroke:#34d399
-    classDef infra fill:#374151,color:#fff,stroke:#9ca3af
-    classDef memory fill:#3f3f46,color:#fff,stroke:#a1a1aa
-
+```
 
 ## 🚀 Quick Start
 KubeCortex is designed to run on any Kubernetes cluster (Kind, Minikube, EKS, GKE).
