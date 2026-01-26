@@ -1,0 +1,94 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: planrequests.cortex.kubecortex.io
+spec:
+  group: cortex.kubecortex.io
+  names:
+    kind: PlanRequest
+    listKind: PlanRequestList
+    plural: planrequests
+    singular: planrequest
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: PlanRequest is the Schema for the planrequests API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: spec defines the desired state of PlanRequest
+            properties:
+              context:
+                additionalProperties:
+                  type: string
+                description: Context provides optional structured inputs (cluster,
+                  app, env)
+                type: object
+              dryRun:
+                description: DryRun ensures no execution happens if true
+                type: boolean
+              intent:
+                description: Intent is the natural-language goal from the user
+                minLength: 5
+                type: string
+              planner:
+                description: Planner hints which cognitive engine to use (autogen,
+                  langgraph, crewai)
+                enum:
+                - autogen
+                - langgraph
+                - crewai
+                type: string
+            required:
+            - intent
+            type: object
+          status:
+            description: status defines the observed state of PlanRequest
+            properties:
+              generatedPlan:
+                description: GeneratedPlan stores the last YAML plan produced by the
+                  AI
+                type: string
+              phase:
+                description: |-
+                  Phase represents the lifecycle stage
+                  Pending → Planning → Validating → Executing → Completed | Rejected | Failed
+                type: string
+              policyViolations:
+                description: PolicyViolations captures rejection feedback from the
+                  firewall
+                items:
+                  type: string
+                type: array
+              reason:
+                description: Reason is a human-readable explanation
+                type: string
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

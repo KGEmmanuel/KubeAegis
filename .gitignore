@@ -1,16 +1,25 @@
+<<<<<<< HEAD
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
+=======
+>>>>>>> a82bc87 (Phase 4 complete: CRDs generated and controller tested successfully)
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
+<<<<<<< HEAD
+=======
+bin/*
+Dockerfile.cross
+>>>>>>> a82bc87 (Phase 4 complete: CRDs generated and controller tested successfully)
 
 # Test binary, built with `go test -c`
 *.test
 
+<<<<<<< HEAD
 # Code coverage profiles and other test artifacts
 *.out
 coverage.*
@@ -30,3 +39,23 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+=======
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Go workspace file
+go.work
+
+# Kubernetes Generated files - skip generated files, except for vendored files
+!vendor/**/zz_generated.*
+
+# editor and IDE paraphernalia
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Kubeconfig might contain secrets
+*.kubeconfig
+>>>>>>> a82bc87 (Phase 4 complete: CRDs generated and controller tested successfully)

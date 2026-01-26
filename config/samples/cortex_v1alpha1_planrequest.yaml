@@ -1,0 +1,9 @@
+apiVersion: cortex.kubecortex.io/v1alpha1
+kind: PlanRequest
+metadata:
+  labels:
+    app.kubernetes.io/name: kubecortex
+    app.kubernetes.io/managed-by: kustomize
+  name: planrequest-sample
+spec:
+  # TODO(user): Add fields here
