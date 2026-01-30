@@ -7,7 +7,7 @@ domain: kubecortex.io
 layout:
 - go.kubebuilder.io/v4
 projectName: kubecortex
-repo: github.com/KGEmmanuel/KubeCortex
+repo: github.com/KGEmmanuel/KubeAegis
 resources:
 - api:
     crdVersion: v1
@@ -16,6 +16,6 @@ resources:
   domain: kubecortex.io
   group: cortex
   kind: PlanRequest
-  path: github.com/KGEmmanuel/KubeCortex/api/v1alpha1
+  path: github.com/KGEmmanuel/KubeAegis/api/v1alpha1
   version: v1alpha1
 version: "3"

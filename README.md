@@ -1,16 +1,16 @@
 <<<<<<< HEAD
-# KubeCortex
+# KubeAegis
 A Vendor-Neutral Protocol for Constitutional Agentic Control Planes. Defining the Cognitive Agent Interface (CAI) for Kubernetes.
-# KubeCortex
+# KubeAegis
 > **A Vendor-Neutral Protocol for Constitutional Agentic Control Planes.**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Go Report Card](https://goreportcard.com/badge/github.com/KGEmmanuel/KubeCortex)](https://goreportcard.com/report/github.com/KGEmmanuel/KubeCortex)
+[![Go Report Card](https://goreportcard.com/badge/github.com/KGEmmanuel/KubeAegis)](https://goreportcard.com/report/github.com/KGEmmanuel/KubeAegis)
 [![CNCF Landscape](https://img.shields.io/badge/CNCF%20Landscape-Sandbox-blue)](https://landscape.cncf.io/)
 
 ---
 
-**KubeCortex** defines the **Cognitive Agent Interface (CAI)**, a standard protocol that allows any AI Agent (AutoGen, LangGraph, CrewAI) to safely negotiate with Kubernetes clusters via a "Constitutional Proxy."
+**KubeAegis** defines the **Cognitive Agent Interface (CAI)**, a standard protocol that allows any AI Agent (AutoGen, LangGraph, CrewAI) to safely negotiate with Kubernetes clusters via a "Constitutional Proxy."
 
 It solves the **"Black Box"** problem in Agentic Infrastructure by wrapping probabilistic AI reasoning in deterministic safety policies (OPA/Kyverno).
 
@@ -23,7 +23,7 @@ It solves the **"Black Box"** problem in Agentic Infrastructure by wrapping prob
 flowchart TB
 
     User["User / CI-CD System\nPlanRequest CRD"]
-    Operator["Cortex Operator\nSemantic Router"]
+    Operator["Aegis Operator\nSemantic Router"]
 
     User --> Operator
 
@@ -92,10 +92,10 @@ flowchart TB
 ```
 
 ## 🚀 Quick Start
-KubeCortex is designed to run on any Kubernetes cluster (Kind, Minikube, EKS, GKE).
+KubeAegis is designed to run on any Kubernetes cluster (Kind, Minikube, EKS, GKE).
 
 ```bash
-# 1. Install the KubeCortex Operator
+# 1. Install the KubeAegis Operator
 helm repo add kubecortex [https://charts.kubecortex.io](https://charts.kubecortex.io)
 helm install cortex-operator kubecortex/operator
 
@@ -223,7 +223,7 @@ More information can be found via the [Kubebuilder Documentation](https://book.k
 
 ## License
 
-Copyright 2026 KubeCortex Authors.
+Copyright 2026 KubeAegis Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

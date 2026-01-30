@@ -1,4 +1,4 @@
-module github.com/KGEmmanuel/KubeCortex
+module github.com/KGEmmanuel/KubeAegis
 
 go 1.25.3
 

@@ -1,28 +1,28 @@
-# KubeCortex Governance Policy
+# KubeAegis Governance
 
-The KubeCortex project is an open-source project managed by its community. This document outlines the governance model, ensuring that the project remains vendor-neutral and driven by technical merit.
+## Overview
+KubeAegis is a community-driven project dedicated to providing constitutional infrastructure for Agentic AI. This document outlines the project's governance structure, decision-making processes, and the roadmap to neutral governance.
 
-## 1. Principles
-* **Open:** The project is open to anyone to participate, contribute, and become a maintainer.
-* **Vendor Neutral:** No single organization shall dominate the project's direction. We aim to adhere to CNCF standards.
-* **Meritocratic:** Responsibilities and decision-making power are earned through active contribution.
+## The Bootstrap Governance Model (Phase 1)
+*Effective Date: January 2026*
 
-## 2. Roles
+As a project in its incubation phase, KubeAegis currently operates under a **Bootstrap Governance Model** to ensure rapid iteration and architectural consistency during the initial launch.
 
-### Contributors
-Anyone who submits issues, pull requests, or documentation updates.
+### 1. The Benevolent Dictator for Now (BDFN)
+Currently, the project founder (**KGEmmanuel**) serves as the interim BDFN. Responsibilities include:
+* Final architectural decisions.
+* Release management and roadmap prioritization.
+* Reviewing and merging Pull Requests.
 
-### Maintainers
-Contributors who have shown dedication to the project and have been voted in by existing maintainers. Maintainers have the authority to merge Pull Requests and steer the roadmap.
+### 2. The Path to Neutrality (The "Sunset" Clause)
+The BDFN model is **temporary**. KubeAegis is committed to transitioning to a democratically elected Steering Committee. This transition will be triggered automatically when **one** of the following criteria is met:
+1.  The project reaches **3 active, independent maintainers** (from different organizations).
+2.  The date reaches **October 1st, 2026 (Q4)**.
 
-## 3. Decision Making
-The project strives for consensus. If consensus cannot be reached, decisions are made by a majority vote of the Maintainers.
+Upon this trigger, a Steering Committee election will be held according to standard CNCF voting protocols.
 
-### The "50% Rule"
-To ensure vendor neutrality, **no single company or organization may hold more than 50% of the Maintainer seats.** If a hiring event causes a single company to exceed this ratio, the maintainer team will freeze voting rights for the excess members until the balance is restored (either by adding external maintainers or members stepping down).
+## Maintainers
+* **Guillaume Emmanuel KALDJOB (KGEmmanuel)** - *Founder & Lead Architect*
 
-## 4. Code of Conduct
-We follow the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md). Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project administrators.
-
-## 5. Updating Governance
-Changes to this governance document require a Supermajority (2/3) vote of the Maintainers.
+## Code of Conduct
+All governance activities are subject to the [KubeAegis Code of Conduct](CODE_OF_CONDUCT.md).
