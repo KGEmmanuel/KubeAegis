@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecortex-controller-manager
+  namespace: kubeaegis-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: manager
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-secret
+              key: OPENAI_API_KEY
