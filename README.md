@@ -1,240 +1,102 @@
-<<<<<<< HEAD
-# KubeAegis
-A Vendor-Neutral Protocol for Constitutional Agentic Control Planes. Defining the Cognitive Agent Interface (CAI) for Kubernetes.
-# KubeAegis
-> **A Vendor-Neutral Protocol for Constitutional Agentic Control Planes.**
+# 🛡️ KubeAegis
+### Agentic Infrastructure for Kubernetes
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Go Report Card](https://goreportcard.com/badge/github.com/KGEmmanuel/KubeAegis)](https://goreportcard.com/report/github.com/KGEmmanuel/KubeAegis)
-[![CNCF Landscape](https://img.shields.io/badge/CNCF%20Landscape-Sandbox-blue)](https://landscape.cncf.io/)
+> **Chat with your cluster.** Bridge the gap between natural language intent and high-security infrastructure.
+
+![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?style=flat&logo=go)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Operator-326ce5?style=flat&logo=kubernetes)
+![Docker](https://img.shields.io/badge/Container-Distroless-2496ED?style=flat&logo=docker)
+![License](https://img.shields.io/badge/License-Apache_2.0-green.svg)
 
 ---
 
-**KubeAegis** defines the **Cognitive Agent Interface (CAI)**, a standard protocol that allows any AI Agent (AutoGen, LangGraph, CrewAI) to safely negotiate with Kubernetes clusters via a "Constitutional Proxy."
+## 📖 Overview
+**KubeAegis** is an AI-powered Kubernetes Operator that functions as an intelligent infrastructure agent. Instead of writing complex YAML boilerplate manually, operators interact with Aegis using natural language.
 
-It solves the **"Black Box"** problem in Agentic Infrastructure by wrapping probabilistic AI reasoning in deterministic safety policies (OPA/Kyverno).
+Unlike standard "copilots," KubeAegis runs **inside your cluster** as a secure controller, maintaining state and context. It uses a **Hybrid Brain** architecture, supporting both cloud-based LLMs (OpenAI GPT-4) for power and local models (Ollama/Llama 3) for air-gapped security.
 
-## 🏗 Architecture
-* **Protocol:** CAI (Cognitive Agent Interface)
-* **Safety:** The Constitutional Proxy (Sidecar)
-* **State:** Pluggable Durable Backend (Default: Temporal)
+## 🚀 Key Features
+* **🗣️ Natural Language Interface:** Command your cluster: *"Deploy a highly available Redis cluster with 3 replicas."*
+* **🧠 "Human-in-the-Loop" Workflow:** The AI generates a plan, but *you* have the final say. Review, Refine, or Reject via the CLI.
+* **🛡️ Security First:**
+    * Built on **Google Distroless** images (Rootless, no shell, 95% smaller attack surface).
+    * Full **RBAC** integration.
+    * Production-grade **Secret Management** for AI keys.
+* **⚡ Native CLI:** Includes `aegis`, a standalone Go binary for seamless interaction.
+
+## 🏗️ Architecture
 
 ```mermaid
-flowchart TB
+sequenceDiagram
+    participant User as 👤 Platform Eng
+    participant CLI as 💻 Aegis CLI
+    participant K8s as ☸️ K8s API
+    participant Ctrl as 🛡️ Aegis Controller
+    participant AI as 🧠 AI Brain (OpenAI/Ollama)
 
-    User["User / CI-CD System\nPlanRequest CRD"]
-    Operator["Aegis Operator\nSemantic Router"]
-
-    User --> Operator
-
-    subgraph L1[Layer 1: Cognitive Planner]
-        Router["Semantic Router"]
-
-        subgraph Agents[Pluggable AI Planners]
-            AutoGen["AutoGen\nMulti-Agent Debate"]
-            LangGraph["LangGraph\nStateful Reasoning"]
-            CrewAI["CrewAI\nRole-Based Agents"]
-        end
-
-        Draft["Draft Plan\nYAML Manifest"]
-    end
-
-    Operator --> Router
-    Router --> AutoGen
-    Router --> LangGraph
-    Router --> CrewAI
-
-    AutoGen --> Draft
-    LangGraph --> Draft
-    CrewAI --> Draft
-
-    subgraph L2[Layer 2: Constitutional Proxy]
-        Proxy["Constitutional Proxy"]
-        Policy["Policy Engine\nOPA / Kyverno"]
-        Reject["Policy Violation"]
-        Sign["Verified & Signed Plan"]
-    end
-
-    Draft --> Proxy
-    Proxy --> Policy
-    Policy -->|Reject| Reject
-    Reject -.-> Router
-    Policy -->|Approve| Sign
-
-    subgraph L3[Layer 3: Durable Execution]
-        Executor["Pluggable Executor"]
-        Temporal["Temporal Worker"]
-        Argo["Argo Workflows"]
-    end
-
-    Sign --> Executor
-    Executor --> Temporal
-    Executor --> Argo
-
-    subgraph L4[Layer 4: Infrastructure]
-        K8s["Kubernetes API"]
-        Pods["Pods / Nodes"]
-        Crossplane["Crossplane Resources"]
-    end
-
-    Temporal --> K8s
-    Argo --> K8s
-    K8s --> Pods
-    K8s --> Crossplane
-
-    subgraph Memory[State & Audit Trail]
-        Store["Postgres / Redis"]
-    end
-
-    Operator --> Store
-    Proxy --> Store
-    Executor --> Store
+    User->>CLI: "Create an Nginx pod"
+    CLI->>K8s: Creates PlanRequest (CRD)
+    K8s->>Ctrl: Reconcile Loop Triggered
+    Ctrl->>AI: Sends Context + Intent
+    AI->>Ctrl: Returns YAML Manifest
+    Ctrl->>K8s: Updates Status with Plan
+    CLI->>User: Shows Plan & Asks for Approval
+    User->>CLI: [A]pply / [R]efine
+    CLI->>K8s: Applies Manifest
 ```
 
-## 🚀 Quick Start
-KubeAegis is designed to run on any Kubernetes cluster (Kind, Minikube, EKS, GKE).
-
-```bash
-# 1. Install the KubeAegis Operator
-helm repo add kubecortex [https://charts.kubecortex.io](https://charts.kubecortex.io)
-helm install cortex-operator kubecortex/operator
-
-# 2. Submit your first Intent
-kubectl apply -f examples/intent-high-availability.yaml
-=======
-# kubecortex
-// TODO(user): Add simple overview of use/purpose
-
-## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
-
-## Getting Started
+## 🛠️ Installation
 
 ### Prerequisites
-- go version v1.24.6+
-- docker version 17.03+.
-- kubectl version v1.11.3+.
-- Access to a Kubernetes v1.11.3+ cluster.
+* Kubernetes Cluster (Kind, Minikube, GKE, EKS)
+* `kubectl` configured
+* OpenAI API Key (or local Ollama instance)
 
-### To Deploy on the cluster
-**Build and push your image to the location specified by `IMG`:**
-
-```sh
-make docker-build docker-push IMG=<some-registry>/kubecortex:tag
-```
-
-**NOTE:** This image ought to be published in the personal registry you specified.
-And it is required to have access to pull the image from the working environment.
-Make sure you have the proper permission to the registry if the above commands don’t work.
-
-**Install the CRDs into the cluster:**
-
-```sh
+### 1. Deploy the Operator
+```bash
+# Install Custom Resource Definitions (CRDs)
 make install
+
+# Deploy the Controller (Pre-built Distroless Image)
+make deploy IMG=ghcr.io/kgemmanuel/kubeaegis-controller:v0.1.0
 ```
 
-**Deploy the Manager to the cluster with the image specified by `IMG`:**
-
-```sh
-make deploy IMG=<some-registry>/kubecortex:tag
+### 2. Configure the Brain
+Inject your API key into the secure cluster secret:
+```bash
+kubectl create secret generic openai-secret \
+    --namespace=kubeaegis-system \
+    --from-literal=OPENAI_API_KEY=sk-YOUR-REAL-KEY
 ```
 
-> **NOTE**: If you encounter RBAC errors, you may need to grant yourself cluster-admin
-privileges or be logged in as admin.
-
-**Create instances of your solution**
-You can apply the samples (examples) from the config/sample:
-
-```sh
-kubectl apply -k config/samples/
+### 3. Install the CLI
+```bash
+go build -o bin/aegis cmd/aegis/main.go
 ```
 
->**NOTE**: Ensure that the samples has default values to test it out.
+## 💡 Usage Example
 
-### To Uninstall
-**Delete the instances (CRs) from the cluster:**
-
-```sh
-kubectl delete -k config/samples/
+**1. Generate a Plan**
+```bash
+./bin/aegis plan "Deploy a Postgres database with persistent storage"
 ```
 
-**Delete the APIs(CRDs) from the cluster:**
+**2. Refine the Result (Interactive Mode)**
+> **Aegis:** *Generates standard Postgres Deployment*
+>
+> **❓ What would you like to do? [A]pply / [R]efine / [Q]uit:** R
+> **📝 Feedback:** "Add resource limits: 500m cpu and 512Mi memory"
+>
+> **Aegis:** *Regenerates YAML with limits applied*
+>
+> **❓ What would you like to do? [A]pply / [R]efine / [Q]uit:** A
+> **🚀 Applying plan to cluster...**
+> **✅ Deployment Successful!**
 
-```sh
-make uninstall
-```
+## 🔮 Roadmap
+* [x] **Q1 2026:** Core Controller, Cloud Deployment, CLI V1
+* [ ] **Q2 2026:** RAG Integration (Cluster-aware context)
+* [ ] **Q3 2026:** Auto-Healing Agents (Log analysis & self-repair)
 
-**UnDeploy the controller from the cluster:**
-
-```sh
-make undeploy
-```
-
-## Project Distribution
-
-Following the options to release and provide this solution to the users.
-
-### By providing a bundle with all YAML files
-
-1. Build the installer for the image built and published in the registry:
-
-```sh
-make build-installer IMG=<some-registry>/kubecortex:tag
-```
-
-**NOTE:** The makefile target mentioned above generates an 'install.yaml'
-file in the dist directory. This file contains all the resources built
-with Kustomize, which are necessary to install this project without its
-dependencies.
-
-2. Using the installer
-
-Users can just run 'kubectl apply -f <URL for YAML BUNDLE>' to install
-the project, i.e.:
-
-```sh
-kubectl apply -f https://raw.githubusercontent.com/<org>/kubecortex/<tag or branch>/dist/install.yaml
-```
-
-### By providing a Helm Chart
-
-1. Build the chart using the optional helm plugin
-
-```sh
-kubebuilder edit --plugins=helm/v2-alpha
-```
-
-2. See that a chart was generated under 'dist/chart', and users
-can obtain this solution from there.
-
-**NOTE:** If you change the project, you need to update the Helm Chart
-using the same command above to sync the latest changes. Furthermore,
-if you create webhooks, you need to use the above command with
-the '--force' flag and manually ensure that any custom configuration
-previously added to 'dist/chart/values.yaml' or 'dist/chart/manager/manager.yaml'
-is manually re-applied afterwards.
-
-## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
-
-**NOTE:** Run `make help` for more information on all potential `make` targets
-
-More information can be found via the [Kubebuilder Documentation](https://book.kubebuilder.io/introduction.html)
-
-## License
-
-Copyright 2026 KubeAegis Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
->>>>>>> a82bc87 (Phase 4 complete: CRDs generated and controller tested successfully)
+---
+*Built with ❤️ in Québec City by **Kaldjob Guillaume Emmanuel**.*
